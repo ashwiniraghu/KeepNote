@@ -49,9 +49,15 @@
       <h1>Welcome to Keep Notes</h1>
       <div class="card">
         <div class="card-body">
+          <h5 class="card-title">Note Title</h5>
+          <input type="text" id="noteTitle" class="form-control my-2" placeholder="Enter note title here"></input>
           <h5 class="card-title">Add a Note</h5>
           <div class="form-group">
-            <textarea class="form-control my-2" id="addTxt" rows="3"></textarea>
+       
+            <textarea class="form-control my-2" id="addTxt" rows="3" placeholder="Add note here"
+            required></textarea>
+        
+            <!-- <div class="invalid-feedback" id="invalid" style="visibility: hidden;" >Please enter a message in the textarea.</div> -->
         </div>
         <button class="btn btn-primary" id="addBtn">Add Note</button>
         </div>

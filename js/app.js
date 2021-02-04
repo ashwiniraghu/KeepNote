@@ -6,16 +6,29 @@ let addBtn = document.getElementById('addBtn');
  notes to local storage and also display it in the UI**/
 addBtn.addEventListener("click", function (e) {
     let addTxt = document.getElementById('addTxt');
-    let noteslocal = localStorage.getItem("notes");
-    if (noteslocal == null) {
-        notesObj = [];
+    let noteTitle = document.getElementById('noteTitle');
+    if (addTxt.value != '') {
+        let noteslocal = localStorage.getItem("notes");
+        if (noteslocal == null) {
+            notesObj = [];
+        }
+        else {
+            notesObj = JSON.parse(noteslocal);
+        }
+        let myobj={
+            title:noteTitle.value,
+            text:addTxt.value
+        }
+        notesObj.push(myobj);
+        localStorage.setItem("notes", JSON.stringify(notesObj));
+        addTxt.value = "";
+        noteTitle.value="";
     }
-    else {
-        notesObj = JSON.parse(noteslocal);
+    else
+    {
+    // let valid =document.getElementById('invalid');
+    // valid.style.visibility = "visible";
     }
-    notesObj.push(addTxt.value);
-    localStorage.setItem("notes", JSON.stringify(notesObj));
-    addTxt.value = "";
     showNotes();
 })
 
@@ -33,8 +46,8 @@ function showNotes() {
         html += `
         <div class="noteCard my-2 mx-2 card" style="width: 18rem">
             <div class="card-body">
-              <h5 class="card-title">${index + 1}</h5>
-              <p class="card-text">${element}</p>
+              <h5 class="card-title">${element.title}</h5>
+              <p class="card-text">${element.text}</p>
               <button id="${index}"  onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
             </div>
           </div>`;
@@ -81,7 +94,7 @@ btnSearch = document.getElementById('btnTxt');
 btnSearch.addEventListener("click", function (element) {
     search = document.getElementById('searchTxt');
     let inputValue = search.value.toLowerCase();
-console.log(inputValue);
+    console.log(inputValue);
     let noteCards = document.getElementsByClassName('noteCard');
     Array.from(noteCards).forEach(function (element) {
         let cardValue = element.getElementsByTagName("p")[0].innerText;
